@@ -23,7 +23,7 @@ export class TaskRepository extends PrimaryRepository<Task> {
 
     const queryBuilder = filterQueryBuilder
       .build()
-      .where('tasks.user_id = :user_id', { user_id });
+      .andWhere('tasks.user_id = :user_id', { user_id });
     const result = await queryBuilder.getManyAndCount();
     return result;
   }

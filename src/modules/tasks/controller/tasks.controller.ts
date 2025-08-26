@@ -25,7 +25,8 @@ import { UpdateTaskRequest } from './request/updateTask.request';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { GetUser } from 'src/modules/auth/decorators/getUser.decorator';
 import { User } from 'src/modules/users/entities/user.entity';
-import { IFilterQuery } from 'src/shared/helpers/filters/typeorm/FilterBuilder';
+import { ListTasksRequest } from './request/listTasks.request';
+import { parseQueryFilters } from 'src/shared/helpers/filters/parsers/parseQueryFilters';
 
 @ApiTags('Tasks')
 @ApiBearerAuth()
@@ -54,8 +55,8 @@ export class TaskController {
   @Get()
   @ApiOperation({ summary: 'List all tasks' })
   @ApiResponse({ status: 200, description: 'Return all tasks.' })
-  findAll(@Query() query: IFilterQuery, @GetUser() user: User) {
-    return this.listTasksService.execute(user.id, query);
+  findAll(@Query() query: ListTasksRequest, @GetUser() user: User) {
+    return this.listTasksService.execute(user.id, parseQueryFilters(query));
   }
 
   @Get(':id')
