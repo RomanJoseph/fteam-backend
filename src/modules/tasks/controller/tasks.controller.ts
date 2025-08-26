@@ -31,7 +31,7 @@ import { parseQueryFilters } from 'src/shared/helpers/filters/parsers/parseQuery
 @ApiTags('Tasks')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('tasks')
+@Controller('todos')
 export class TaskController {
   constructor(
     private readonly createTaskService: CreateTaskService,

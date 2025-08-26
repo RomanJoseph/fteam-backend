@@ -1,100 +1,93 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Task Manager API - Teste Backend FTeam
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta é a API para o Task Manager, uma aplicação de gerenciamento de tarefas. A API é construída com NestJS e segue as melhores práticas de arquitetura de software para garantir que seja escalável, testável e de fácil manutenção.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Como Rodar o Projeto
 
-## Description
+Para rodar o projeto, você precisa ter o Docker e o Docker Compose instalados em sua máquina. Com os dois instalados, siga os seguintes passos:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+1. Clone o repositório:
 
 ```bash
-$ yarn install
+git clone <url-do-repositorio>
 ```
 
-## Compile and run the project
+2. Navegue até a pasta do projeto:
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+cd <nome-da-pasta>
 ```
 
-## Run tests
+3. Execute o seguinte comando para construir e iniciar os containers Docker:
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+docker compose up -d --build
 ```
 
-## Deployment
+A aplicação estará disponível em `http://localhost:3002`.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Arquitetura do Projeto
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+O projeto segue uma arquitetura modular e em camadas, projetada para separação de responsabilidades, testabilidade e escalabilidade.
 
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
-```
+### Módulos
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Cada recurso principal da aplicação é encapsulado em seu próprio módulo (por exemplo, `UsersModule`, `TasksModule`, `AuthModule`). Isso ajuda a organizar o código e a manter um baixo acoplamento entre os diferentes recursos.
 
-## Resources
+### Camadas
 
-Check out a few resources that may come in handy when working with NestJS:
+Dentro de cada módulo, o código é organizado em várias camadas:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- **Controller**: Lida com as requisições HTTP de entrada, valida os dados da requisição e invoca os serviços apropriados.
+- **Service**: Contém a lógica de negócios principal. Os serviços orquestram o fluxo de dados e interagem com a camada de repositório para acessar o banco de dados.
+- **Repository**: Abstrai o acesso aos dados. Os repositórios fornecem uma interface para consultar e manipular entidades no banco de dados.
 
-## Support
+## Features
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Autenticação com JWT
 
-## Stay in touch
+A autenticação é implementada usando JSON Web Tokens (JWT). O fluxo de autenticação é o seguinte:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. **Registro**: O usuário se registra com nome, email e senha. A senha é hasheada usando `bcrypt` antes de ser salva no banco de dados.
+2. **Login**: O usuário faz login com email e senha. Se as credenciais estiverem corretas, um JWT é gerado e retornado ao usuário.
+3. **Rotas Autenticadas**: Para acessar rotas protegidas, o usuário deve incluir o JWT no cabeçalho de autorização como um Bearer token.
+4. **Validação do Token**: O `AuthGuard` intercepta as requisições para rotas protegidas e usa o `ValidateTokenService` para verificar a validade do token.
 
-## License
+### Filtro Dinâmico
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-# transaction-management-nestjs
-# fteam-backend
+A listagem de tarefas (`GET /tasks`) suporta filtros dinâmicos, paginação e ordenação através de query parameters.
+
+- `page`: Número da página (padrão: 1).
+- `per_page`: Número de itens por página (padrão: 10).
+- `filterBy`: Campos a serem filtrados (separados por vírgula).
+- `filterType`: Tipos de filtro (separados por vírgula). Os tipos suportados são `equals`, `contains` e `in`.
+- `filterValue`: Valores do filtro (separados por vírgula).
+- `orderBy`: Campo para ordenação.
+- `orderType`: Tipo de ordenação (`ASC` ou `DESC`).
+
+**Exemplo de Uso:**
+
+`GET /tasks?filterBy=status&filterType=eq&filterValue=done&orderBy=created_at&orderType=DESC`
+
+Esta requisição irá filtrar as tarefas onde o `status` é igual a `done` e irá ordenar os resultados por `created_at` em ordem decrescente.
+
+### PrimaryRepository e PrimaryEntity
+
+Para agilizar o desenvolvimento e manter o código genérico, o projeto utiliza um `PrimaryRepository` e uma `PrimaryEntity`. A `PrimaryEntity` é uma classe base que define campos comuns a todas as entidades, como `id`, `created_at` e `updated_at`. O `PrimaryRepository` é um repositório genérico que fornece métodos da ORM diretamente ao serviço, que podem ser estendidos por repositórios específicos de cada entidade.
+
+### Transações em Escopo de Controller
+
+Para garantir a consistência dos dados, o projeto utiliza um middleware de transação que intercepta todas as requisições que não são do tipo `GET`. O middleware inicia uma transação no início da requisição e a commita no final, se tudo ocorrer bem. Em caso de erro, a transação é revertida (rollback), garantindo que nenhuma operação incompleta seja salva no banco de dados. Note que, é possível selecionar quais controller você quer que estejam em escopo de transação.
+
+## Endpoints da API
+
+A documentação completa da API com todos os endpoints disponíveis pode ser acessada em `http://localhost:3000/api`.
+
+## Tecnologias Utilizadas
+
+- **NestJS**: Framework Node.js para construir aplicações de servidor eficientes e escaláveis.
+- **TypeORM**: ORM para TypeScript e JavaScript.
+- **PostgreSQL**: Banco de dados relacional de código aberto.
+- **Docker**: Plataforma para desenvolver, enviar e executar aplicações em containers.
+- **JWT**: Padrão aberto para criar tokens de acesso.
+- **class-validator** e **class-transformer**: Bibliotecas para validação e transformação de dados.
