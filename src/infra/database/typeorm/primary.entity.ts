@@ -5,8 +5,8 @@ import {
 } from 'typeorm';
 
 export abstract class PrimaryEntity {
-  @PrimaryGeneratedColumn('identity')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;

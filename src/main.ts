@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('Load Scheduling API')
     .setDescription('API para agendamento de cargas')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

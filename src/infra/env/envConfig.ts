@@ -9,4 +9,8 @@ export const envConfig = {
     password: process.env.DB_PASSWORD ?? 'taskmanager',
     database: process.env.DB_DATABASE ?? 'taskmanager',
   },
+  jwt: {
+    secret: process.env.JWT_SECRET ?? 'default_secret',
+    expiresIn: process.env.JWT_EXPIRES_IN ?? '1d',
+  },
 };

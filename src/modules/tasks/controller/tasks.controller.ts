@@ -6,8 +6,14 @@ import {
   Param,
   Delete,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { CreateTaskService } from '../services/createTask.service';
 import { ListTasksService } from '../services/listTasks.service';
 import { GetTaskService } from '../services/getTask.service';
@@ -15,8 +21,13 @@ import { UpdateTaskService } from '../services/updateTask.service';
 import { DeleteTaskService } from '../services/deleteTask.service';
 import { CreateTaskRequest } from './request/createTask.request';
 import { UpdateTaskRequest } from './request/updateTask.request';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { GetUser } from 'src/modules/auth/decorators/getUser.decorator';
+import { User } from 'src/modules/users/entities/user.entity';
 
 @ApiTags('Tasks')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
 @Controller('tasks')
 export class TaskController {
   constructor(
@@ -34,8 +45,8 @@ export class TaskController {
     description: 'The task has been successfully created.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  create(@Body() createTaskRequest: CreateTaskRequest) {
-    return this.createTaskService.create(createTaskRequest);
+  create(@Body() createTaskRequest: CreateTaskRequest, @GetUser() user: User) {
+    return this.createTaskService.create(createTaskRequest, user.id);
   }
 
   @Get()

@@ -7,11 +7,12 @@ import { Task } from '../entities/task.entity';
 export class CreateTaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
 
-  async create(data: CreateTaskRequest): Promise<Task> {
+  async create(data: CreateTaskRequest, userId: string): Promise<Task> {
     const task = new Task();
     task.title = data.title;
     task.description = data.description;
     task.status = data.status;
+    task.userId = userId;
 
     return this.taskRepository.save(task);
   }
