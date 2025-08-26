@@ -1,0 +1,47 @@
+//@ts-nocheck
+import { UnauthorizedException } from '@nestjs/common';
+import { celebrate, Joi, Segments } from 'celebrate';
+import { NextFunction, Request, Response } from 'express';
+
+export async function filterLengthValidate(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+): Promise<void> {
+  const { filterBy, filterType, filterValue } = request.query;
+
+  const filtersNumber = (filterBy as string)?.split(',').length;
+  if ((filterType as string)?.split(',').length !== filtersNumber) {
+    throw new UnauthorizedException(
+      'As quantidade de campos filterBy e filterType não conferem!',
+      400,
+    );
+  }
+  if ((filterValue as string)?.split(',').length !== filtersNumber) {
+    throw new UnauthorizedException(
+      'As quantidade de campos filterBy e filterValue não conferem!',
+      400,
+    );
+  }
+  return next();
+}
+
+export const listWithFilterSchema = Joi.object({
+  page: Joi.number().positive(),
+  per_page: Joi.number().positive(),
+
+  filterBy: Joi.string(),
+  filterType: Joi.string(),
+  filterValue: Joi.string(),
+
+  orderType: Joi.string().valid('ASC', 'DESC'),
+  orderBy: Joi.string().when('orderType', {
+    is: Joi.exist(),
+    then: Joi.string().required(),
+    otherwise: Joi.string().optional(),
+  }),
+}).and('filterBy', 'filterType', 'filterValue');
+
+export const listWithFiltersValidade = celebrate({
+  [Segments.QUERY]: listWithFilterSchema,
+});
