@@ -23,7 +23,7 @@ const filterTypes = [
   'is_null',
 ];
 
-const orderTypes = ['asc', 'desc'];
+const orderTypes = ['ASC', 'DESC'];
 
 export class ListTasksRequest {
   @ApiPropertyOptional({
@@ -98,11 +98,11 @@ export class ListTasksRequest {
 
   @ApiPropertyOptional({
     description: 'Order type',
-    example: 'desc',
+    example: 'DESC',
     enum: orderTypes,
   })
   @IsIn(orderTypes)
   @IsString()
   @IsOptional()
-  orderType?: 'asc' | 'desc';
+  orderType?: 'ASC' | 'DESC';
 }
